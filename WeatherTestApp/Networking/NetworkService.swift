@@ -8,7 +8,7 @@
 import Foundation
 
 private enum Constant {
-    enum ApiKey{
+    enum ApiKey {
         static let key = "API_KEY"
     }
     enum Request {
@@ -48,35 +48,33 @@ final class NetworkService: NetworkServiceProtocol {
         var request = URLRequest(url: url, timeoutInterval: Constant.Request.timeout)
         request.httpMethod = HTTPMethod.get.rawValue
         
-        let dataTask = session.dataTask(with: request) { data, response, error in
+        session.dataTask(with: request) { data, response, error in
             if let error {
-                completion(.failure(.unknownError(error.localizedDescription)))
+                onMain { completion(.failure(.unknownError(error.localizedDescription))) }
                 return
             }
 
             guard let response = response as? HTTPURLResponse else {
-                completion(.failure(.invalidResponse))
+                onMain { completion(.failure(.invalidResponse)) }
                 return
             }
 
             guard Constant.StatusCode.rangeOfSuccessful.contains(response.statusCode) else {
-                completion(.failure(.invalidStatusCode(response.statusCode)))
+                onMain { completion(.failure(.invalidStatusCode(response.statusCode))) }
                 return
             }
 
             guard let data else {
-                completion(.failure(.noData))
+                onMain { completion(.failure(.noData)) }
                 return
             }
 
             do {
                 let decodedData = try JSONDecoder().decode(WeatherDTO.self, from: data)
-                completion(.success(decodedData))
+                onMain { completion(.success(decodedData)) }
             } catch let error {
-                completion(.failure(.decodingError(error.localizedDescription)))
+                onMain { completion(.failure(.decodingError(error.localizedDescription))) }
             }
-        }
-
-        dataTask.resume()
+        }.resume()
     }
 }

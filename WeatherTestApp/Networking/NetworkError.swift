@@ -15,4 +15,23 @@ enum NetworkError: Error {
     case noData
     case decodingError(String)
     case unknownError(String)
+
+    var errorDescription: String {
+        switch self {
+        case .apiKeyReadingError:
+            "API key reading error"
+        case .invalidURL:
+            "Invalid URL"
+        case .invalidResponse:
+            "Invalid Response "
+        case .invalidStatusCode(let code):
+            "Invalid Status Code: \(code)"
+        case .noData:
+            "No Data"
+        case .decodingError(let error):
+            "Decoding Error: \(error)"
+        case .unknownError(let error):
+            "Unknown Error \(error)"
+        }
+    }
 }
