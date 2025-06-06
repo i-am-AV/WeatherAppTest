@@ -40,7 +40,7 @@ private extension CityViewController {
             }
         }
     }
-    
+
     func showErrorAlert(with message: String) {
         let alert = UIAlertController(
             title: Texts.Alert.title,

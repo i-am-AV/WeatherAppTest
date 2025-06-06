@@ -23,10 +23,9 @@ private extension SceneDelegate {
         let navigationController = UINavigationController(rootViewController: CityViewController())
         navigationController.navigationBar.prefersLargeTitles = true
         UINavigationBar.appearance().largeTitleTextAttributes = [
-            .foregroundColor : Colors.Text.main
+            .foregroundColor: Colors.Text.main
         ]
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 }
-

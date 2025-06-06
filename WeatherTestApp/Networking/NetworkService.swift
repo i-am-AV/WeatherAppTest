@@ -29,7 +29,7 @@ final class NetworkService: NetworkServiceProtocol {
     func requestWeather(
         forCity city: String,
         forLastDays days: Int,
-        completion: @escaping (Result<WeatherDTO, NetworkError>) -> ()
+        completion: @escaping (Result<WeatherDTO, NetworkError>) -> Void
     ) {
         guard
             let apiKey = Bundle.main.object(forInfoDictionaryKey: Constant.ApiKey.key) as? String
@@ -47,7 +47,7 @@ final class NetworkService: NetworkServiceProtocol {
 
         var request = URLRequest(url: url, timeoutInterval: Constant.Request.timeout)
         request.httpMethod = HTTPMethod.get.rawValue
-        
+
         session.dataTask(with: request) { data, response, error in
             if let error {
                 onMain { completion(.failure(.unknownError(error.localizedDescription))) }

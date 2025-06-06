@@ -11,6 +11,6 @@ protocol NetworkServiceProtocol: AnyObject {
     func requestWeather(
         forCity city: String,
         forLastDays days: Int,
-        completion: @escaping (Result<WeatherDTO, NetworkError>) -> ()
+        completion: @escaping (Result<WeatherDTO, NetworkError>) -> Void
     )
 }

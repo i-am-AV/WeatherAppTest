@@ -10,7 +10,7 @@ import UIKit.UIImage
 final class ImageLoader {
     static let shared = ImageLoader()
     private let cache = NSCache<NSString, UIImage>()
-    
+
     func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
         if let cachedImage = cache.object(forKey: urlString as NSString) {
             onMain { completion(cachedImage) }
@@ -21,7 +21,7 @@ final class ImageLoader {
             onMain { completion(nil) }
             return
         }
-        
+
         URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
             guard
                 let self = self,
@@ -45,7 +45,7 @@ private extension String {
         static let http = "http:"
         static let https = "https:"
     }
-    
+
     func addSchemeIfNeeded() -> Self {
         if !(hasPrefix(Scheme.http) && hasPrefix(Scheme.https)) {
             return Scheme.https + self

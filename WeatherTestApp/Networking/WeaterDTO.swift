@@ -16,7 +16,7 @@ struct WeatherDTO: Decodable {
 struct Location: Decodable {
     let name: String
     let localtime: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case name
         case localtime = "localtime_epoch"

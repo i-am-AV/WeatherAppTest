@@ -11,4 +11,3 @@ enum Images {
     static let humidity: UIImage = UIImage(named: "humidity") ?? UIImage()
     static let wind: UIImage = UIImage(named: "wind") ?? UIImage()
 }
-

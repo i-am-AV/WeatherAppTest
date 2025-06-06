@@ -160,7 +160,7 @@ private extension TableViewCell {
 
             humidityContainerView.centerYAnchor.constraint(equalTo: roundedView.centerYAnchor),
             humidityContainerView.trailingAnchor.constraint(equalTo: roundedView.trailingAnchor, constant: -16),
-            humidityContainerView.bottomAnchor.constraint(equalTo: roundedView.bottomAnchor, constant: -14),
+            humidityContainerView.bottomAnchor.constraint(equalTo: roundedView.bottomAnchor, constant: -14)
         ]
         NSLayoutConstraint.activate(constraints)
     }

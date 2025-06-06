@@ -185,7 +185,7 @@ extension CityView: UITableViewDelegate, UITableViewDataSource {
         label.text = title
         label.font = Fonts.system14Medium
         label.textColor = Colors.Text.secondary
-        
+
         view.addSubview(label)
         label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Header.titleInset).isActive = true
         label.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -224,7 +224,7 @@ private extension CityView {
             topRoundedView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             topRoundedView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             topRoundedView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            
+
             dateLabel.topAnchor.constraint(equalTo: topRoundedView.topAnchor, constant: 32),
             dateLabel.leadingAnchor.constraint(equalTo: topRoundedView.leadingAnchor, constant: 24),
             dateLabel.trailingAnchor.constraint(greaterThanOrEqualTo: iconImageView.leadingAnchor, constant: -24),

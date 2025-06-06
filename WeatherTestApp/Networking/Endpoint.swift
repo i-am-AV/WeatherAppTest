@@ -37,8 +37,6 @@ struct Endpoint {
 private extension String {
     @discardableResult
     func prepareForUsing() -> Self {
-        let prettyString = self.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        return prettyString
+        self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
