@@ -65,6 +65,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FDF94DB82DF036E900047751 /* Build configuration list for PBXNativeTarget "WeatherTestApp" */;
 			buildPhases = (
+				FD9480222DF2ECE200E826D7 /* ShellScript */,
 				FDF94DA12DF036E800047751 /* Sources */,
 				FDF94DA22DF036E800047751 /* Frameworks */,
 				FDF94DA32DF036E800047751 /* Resources */,
@@ -126,6 +127,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FD9480222DF2ECE200E826D7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint --quiet  # --quiet подавляет лишние логи\nelse\n  echo \"SwiftLint не установлен, пропускаю проверку\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FDF94DA12DF036E800047751 /* Sources */ = {

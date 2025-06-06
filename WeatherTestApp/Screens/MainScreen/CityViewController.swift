@@ -7,23 +7,11 @@
 
 import UIKit
 
-#warning("Получать город по текущему местоположению")
-
-private enum Constant {
-    enum City {
-        static let name: String = "Moscow"
-    }
-    enum Alert {
-        static let title: String = "Error"
-        static let cancelActionTitle: String = "Cancel"
-    }
-}
-
 final class CityViewController: UIViewController {
 
     private let cityView = CityView()
     private let viewModel = CityViewModel()
-    
+
     override func loadView() {
         super.loadView()
         view = cityView
@@ -32,13 +20,13 @@ final class CityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        fetchWeather(for: Constant.City.name)
+        fetchWeather(for: Texts.defaultCity)
     }
 }
 
 private extension CityViewController {
     func setupView() {
-        title = Constant.City.name
+        title = Texts.defaultCity
         view.backgroundColor = .systemBackground
     }
 
@@ -55,47 +43,12 @@ private extension CityViewController {
     
     func showErrorAlert(with message: String) {
         let alert = UIAlertController(
-            title: Constant.Alert.title,
+            title: Texts.Alert.title,
             message: message,
             preferredStyle: .alert
         )
-        let cancelAction = UIAlertAction(title: Constant.Alert.cancelActionTitle, style: .cancel)
+        let cancelAction = UIAlertAction(title: Texts.Alert.cancelActionTitle, style: .cancel)
         alert.addAction(cancelAction)
         present(alert, animated: true)
     }
 }
-
-
-import SwiftUI
-
-// MARK: - Обертка для UIViewController
-struct ViewControllerWrapper<ViewController: UIViewController>: UIViewControllerRepresentable {
-    let viewController: ViewController
-    
-    init(_ viewControllerBuilder: @escaping () -> ViewController) {
-        self.viewController = viewControllerBuilder()
-    }
-    
-    func makeUIViewController(context: Context) -> ViewController {
-        return viewController
-    }
-    
-    func updateUIViewController(_ uiViewController: ViewController, context: Context) {
-
-    }
-}
-
-// MARK: - Пример использования
-#if DEBUG
-struct MyViewController_Preview: PreviewProvider {
-    static var previews: some View {
-        ViewControllerWrapper {
-            let nav = UINavigationController(rootViewController: CityViewController())
-            nav.navigationBar.prefersLargeTitles = true
-            
-            return nav
-        }
-        .navigationTitle(Constant.City.name)
-    }
-}
-#endif

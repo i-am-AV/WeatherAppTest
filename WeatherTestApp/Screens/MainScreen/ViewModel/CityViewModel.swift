@@ -10,7 +10,8 @@ import Foundation
 
 private enum Constant {
     static let unknown = "N/A"
-    static let defaultDaysNumber = 5
+    /// Бесплатный план не позволяет получать больше 3 дней
+    static let defaultDaysNumber = 3
 }
 
 final class CityViewModel {
@@ -25,7 +26,7 @@ final class CityViewModel {
     
     var date: String {
         guard let localtime = currentWeather?.location.localtime else { return Constant.unknown }
-        return String(localtime)
+        return String(localtime.formattedDateString(withFormat: .ddMMMMyyyy))
     }
     
     var name: String {
@@ -57,7 +58,7 @@ final class CityViewModel {
         var days: [Day] = []
         guard let forecastdays = currentWeather?.forecast.forecastday else { return [] }
         for (i, value) in forecastdays.enumerated() {
-            let day: String = String(value.date)
+            let day: String = value.date.formattedDateString(withFormat: .dMMMM)
             let icon: UIImage? = forecastdaysImages[safe: i] ?? UIImage()
             let description: String = value.day.condition.text
             let temperature: String = String(value.day.avgTemp)

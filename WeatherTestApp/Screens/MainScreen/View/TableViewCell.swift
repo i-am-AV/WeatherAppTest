@@ -7,6 +7,12 @@
 
 import UIKit
 
+private enum Constant {
+    enum RoundedView {
+        static let cornerRadius: CGFloat = 21
+    }
+}
+
 final class TableViewCell: UITableViewCell {
     static var reuseIdentifier: String { "\(TableViewCell.self)" }
 
@@ -22,14 +28,14 @@ final class TableViewCell: UITableViewCell {
     // MARK: - Private UI зкщзукешуы
 
     private lazy var roundedView = RoundedView(
-        backgroundColor: UIColor(red: 138/255, green: 141/255, blue: 147/255, alpha: 0.05),
-        cornerRadius: 21
+        backgroundColor: Colors.Background.secondary,
+        cornerRadius: Constant.RoundedView.cornerRadius
     ).prepareForAutoLayout()
 
     private lazy var dateLabel: UILabel = {
         let label = UILabel().prepareForAutoLayout()
-        label.font = .systemFont(ofSize: 10, weight: .regular)
-        label.textColor =  UIColor(red: 158/255, green: 158/255, blue: 158/255, alpha: 1)
+        label.font = Fonts.system10Regular
+        label.textColor = Colors.Text.secondary2
 
         return label
     }()
@@ -42,8 +48,8 @@ final class TableViewCell: UITableViewCell {
 
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel().prepareForAutoLayout()
-        label.font = .systemFont(ofSize: 10, weight: .medium)
-        label.textColor = UIColor(red: 117/255, green: 117/255, blue: 117/255, alpha: 1)
+        label.font = Fonts.system10Medium
+        label.textColor = Colors.Text.secondary
         label.textAlignment = .center
 
         return label
@@ -51,8 +57,8 @@ final class TableViewCell: UITableViewCell {
 
     private lazy var temperatureLabel: UILabel = {
         let label = UILabel().prepareForAutoLayout()
-        label.font = .systemFont(ofSize: 24, weight: .medium)
-        label.textColor =  UIColor(red: 97/255, green: 97/255, blue: 97/255, alpha: 1)
+        label.font = Fonts.system24Medium
+        label.textColor = Colors.Text.main
 
         return label
     }()
@@ -71,13 +77,13 @@ final class TableViewCell: UITableViewCell {
         windContainerView.configure(
             with: VerticalContainerView.Model(
                 title: "\(model.windSpeed) m/s",
-                subtitle: "Wind"
+                subtitle: Texts.Container.wind
             )
         )
         humidityContainerView.configure(
             with: VerticalContainerView.Model(
                 title: "\(model.humidity) %",
-                subtitle: "Humidity"
+                subtitle: Texts.Container.humidity
             )
         )
     }

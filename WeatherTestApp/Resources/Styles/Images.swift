@@ -9,7 +9,6 @@ import UIKit.UIImage
 
 enum Images {
     static let humidity: UIImage = UIImage(named: "humidity") ?? UIImage()
-    static let rain: UIImage = UIImage(named: "rain") ?? UIImage()
     static let wind: UIImage = UIImage(named: "wind") ?? UIImage()
 }
 

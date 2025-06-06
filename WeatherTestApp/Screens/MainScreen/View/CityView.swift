@@ -11,15 +11,21 @@ private enum Constant {
     enum TableView {
         static let cellHeight: CGFloat = 86
     }
+    enum RoundedView {
+        static let topViewCornerRadius: CGFloat = 30
+        static let bottomViewCornerRadius: CGFloat = 24
+    }
+    enum Header {
+        static let titleInset: CGFloat = 16
+    }
 }
 
 final class CityView: UIView {
-
     // MARK: - Private UI properties
 
     private lazy var topRoundedView = RoundedView(
-        backgroundColor: UIColor(red: 138/255, green: 141/255, blue: 147/255, alpha: 0.05),
-        cornerRadius: 30
+        backgroundColor: Colors.Background.secondary,
+        cornerRadius: Constant.RoundedView.topViewCornerRadius
     ).prepareForAutoLayout()
 
     private lazy var iconImageView: UIImageView = {
@@ -30,36 +36,36 @@ final class CityView: UIView {
 
     private lazy var dateLabel: UILabel = {
         let label = UILabel().prepareForAutoLayout()
-        label.font = .systemFont(ofSize: 10, weight: .regular)
-        label.textColor =  UIColor(red: 158/255, green: 158/255, blue: 158/255, alpha: 1)
+        label.font = Fonts.system10Regular
+        label.textColor = Colors.Text.secondary2
 
         return label
     }()
 
     private lazy var temperatureLabel: UILabel = {
         let label = UILabel().prepareForAutoLayout()
-        label.font = .systemFont(ofSize: 40, weight: .medium)
-        label.textColor =  UIColor(red: 97/255, green: 97/255, blue: 97/255, alpha: 1)
+        label.font = Fonts.system40Medium
+        label.textColor = Colors.Text.main
 
         return label
     }()
 
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel().prepareForAutoLayout()
-        label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = UIColor(red: 117/255, green: 117/255, blue: 117/255, alpha: 1)
+        label.font = Fonts.system14Medium
+        label.textColor = Colors.Text.secondary
 
         return label
     }()
 
     private lazy var bottomRoundedView = RoundedView(
-        backgroundColor: UIColor(red: 138/255, green: 141/255, blue: 147/255, alpha: 0.05),
-        cornerRadius: 24
+        backgroundColor: Colors.Background.secondary,
+        cornerRadius: Constant.RoundedView.bottomViewCornerRadius
     ).prepareForAutoLayout()
 
     private lazy var horizontalStackView: UIStackView = {
         let stackView = UIStackView(
-            arrangedSubviews: [windContainerView, humidityContainerView, rainContainerView]
+            arrangedSubviews: [windContainerView, humidityContainerView]
         ).prepareForAutoLayout()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -71,8 +77,6 @@ final class CityView: UIView {
     private lazy var windContainerView = VerticalContainerView().prepareForAutoLayout()
 
     private lazy var humidityContainerView = VerticalContainerView().prepareForAutoLayout()
-
-    private lazy var rainContainerView = VerticalContainerView().prepareForAutoLayout()
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView().prepareForAutoLayout()
@@ -104,23 +108,14 @@ final class CityView: UIView {
             with: VerticalContainerView.Model(
                 image: Images.wind,
                 title: "\(viewModel.windSpeed) m/s",
-                subtitle: "Wind"
+                subtitle: Texts.Container.wind
             )
         )
         humidityContainerView.configure(
             with: VerticalContainerView.Model(
                 image: Images.humidity,
                 title: "\(viewModel.humidity) %",
-                subtitle: "Humidity"
-            )
-        )
-
-        #warning("Запрос дождя")
-        rainContainerView.configure(
-            with: VerticalContainerView.Model(
-                image: Images.rain,
-                title: "N/A %",
-                subtitle: "Rain"
+                subtitle: Texts.Container.humidity
             )
         )
 
@@ -157,6 +152,7 @@ extension CityView: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         configureCell(cell, with: items[indexPath.row])
+        cell.selectionStyle = .none
 
         return cell
     }
@@ -178,22 +174,20 @@ extension CityView: UITableViewDelegate, UITableViewDataSource {
         Constant.TableView.cellHeight
     }
 
-    #warning("Вынести текстовки в отдельный файл")
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        createHeaderView(with: "Forecast for 5 days")
+        createHeaderView(with: Texts.Table.headerTitle)
     }
 
-    #warning("Мб создать кастомный класс")
     private func createHeaderView(with title: String) -> UIView {
         let view = UIView()
         view.backgroundColor = .systemBackground
         let label = UILabel().prepareForAutoLayout()
         label.text = title
-        label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = UIColor(red: 117/255, green: 117/255, blue: 117/255, alpha: 1)
+        label.font = Fonts.system14Medium
+        label.textColor = Colors.Text.secondary
         
         view.addSubview(label)
-        label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+        label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Header.titleInset).isActive = true
         label.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         label.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         label.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -243,8 +237,8 @@ private extension CityView {
             temperatureLabel.leadingAnchor.constraint(equalTo: topRoundedView.leadingAnchor, constant: 24),
             temperatureLabel.trailingAnchor.constraint(greaterThanOrEqualTo: iconImageView.leadingAnchor, constant: -24),
 
-            iconImageView.heightAnchor.constraint(equalToConstant: 92),
-            iconImageView.widthAnchor.constraint(equalToConstant: 92),
+            iconImageView.heightAnchor.constraint(equalToConstant: 64),
+            iconImageView.widthAnchor.constraint(equalToConstant: 64),
             iconImageView.centerYAnchor.constraint(equalTo: topRoundedView.centerYAnchor),
             iconImageView.trailingAnchor.constraint(equalTo: topRoundedView.trailingAnchor, constant: -24),
 

@@ -30,18 +30,18 @@ final class VerticalContainerView: UIView {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel().prepareForAutoLayout()
-        label.textColor = UIColor(red: 117/255, green: 117/255, blue: 117/255, alpha: 1)
+        label.textColor = Colors.Text.secondary
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
+        label.font = Fonts.system14Semibold
 
         return label
     }()
 
     private lazy var subtitleLabel: UILabel = {
         let label = UILabel().prepareForAutoLayout()
-        label.textColor = UIColor(red: 117/255, green: 117/255, blue: 117/255, alpha: 1)
+        label.textColor = Colors.Text.secondary
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 10, weight: .regular)
+        label.font = Fonts.system10Regular
 
         return label
     }()
